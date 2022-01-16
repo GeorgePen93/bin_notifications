@@ -15,9 +15,12 @@ x = soup.find_all("div" , {"class":"service-item"} )
 outputobject = {}
 
 for itm in x:
+    
     remove_newline = itm.find_all("p")[1].text.replace('\r\n', '')
-    outputobject[itm.h3.text] = datetime.strptime(remove_newline, '%A, %d %B %Y').date()
+    date_check = datetime.strptime(remove_newline, '%A, %d %B %Y').date()
+    if date_check == datetime.today() :
+        outputobject[itm.h3.text] = date_check
 
-print(json.dumps(outputobject, default=str, indent=4))
+#print(json.dumps(outputobject, default=str, indent=4))
 
 requests.post('https://api.telegram.org/'+config.api_key+'/sendMessage?chat_id=-761509812&text=' + json.dumps(outputobject, default=str, indent=4))
