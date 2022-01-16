@@ -1,5 +1,6 @@
 import json
 import requests
+import config
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -19,4 +20,4 @@ for itm in x:
 
 print(json.dumps(outputobject, default=str, indent=4))
 
-requests.post('https://api.telegram.org/bot5006361375:AAHlLgKL8bdDSh_nQRR5A0OPZyQYA8rGsoo/sendMessage?chat_id=-761509812&text=' + json.dumps(outputobject, default=str, indent=4))
+requests.post('https://api.telegram.org/'+config.api_key+'/sendMessage?chat_id=-761509812&text=' + json.dumps(outputobject, default=str, indent=4))
