@@ -13,6 +13,7 @@ soup = BeautifulSoup(html_text,"html.parser")
 x = soup.find_all("div" , {"class":"service-item"} )
 
 outputobject = {}
+i=0
 
 for itm in x:
     
@@ -20,7 +21,8 @@ for itm in x:
     date_check = datetime.strptime(remove_newline, '%A, %d %B %Y').date()
     if date_check == datetime.today() :
         outputobject[itm.h3.text] = date_check
+        i += 1
 
 #print(json.dumps(outputobject, default=str, indent=4))
-
-requests.post('https://api.telegram.org/'+config.api_key+'/sendMessage?chat_id=-761509812&text=' + json.dumps(outputobject, default=str, indent=4))
+if i > 0:
+    requests.post('https://api.telegram.org/'+config.api_key+'/sendMessage?chat_id=-761509812&text=' + json.dumps(outputobject, default=str, indent=4))
