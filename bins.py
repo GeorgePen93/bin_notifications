@@ -16,13 +16,10 @@ outputobject = {}
 i=0
 
 for itm in x:
-    
     remove_newline = itm.find_all("p")[1].text.replace('\r\n', '')
     date_check = datetime.strptime(remove_newline, '%A, %d %B %Y').date()
-    if date_check == datetime.today() :
+    if date_check == datetime.today().date() :
         outputobject[itm.h3.text] = date_check
         i += 1
-
-#print(json.dumps(outputobject, default=str, indent=4))
 if i > 0:
     requests.post('https://api.telegram.org/'+config.api_key+'/sendMessage?chat_id=-761509812&text=' + json.dumps(outputobject, default=str, indent=4))
