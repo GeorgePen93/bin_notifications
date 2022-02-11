@@ -1,6 +1,6 @@
 import json
 import requests
-#import config
+import config
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -21,6 +21,6 @@ for itm in x:
     if date_check.strftime('%Y-%m-%d') == datetime.today().date().strftime('%Y-%m-%d') :
         outputobject[itm.h3.text] = date_check
         i += 1
-        print(json.dumps(outputobject, default=str, indent=4))
-#if i > 0:
- #   requests.post('https://api.telegram.org/'+config.api_key+'/sendMessage?chat_id=-761509812&text=' + json.dumps(outputobject, default=str, indent=4))
+
+if i > 0:
+    requests.post('https://api.telegram.org/'+config.api_key+'/sendMessage?chat_id=-761509812&text=' + json.dumps(outputobject, default=str, indent=4))
